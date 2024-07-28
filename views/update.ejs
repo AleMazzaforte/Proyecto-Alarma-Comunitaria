@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Usuario</title>
+</head>
+<body>
+    <h1>Actualizar Usuario</h1>
+    <form action="/update/<%= data.control %>" method="post">
+        <label>Número de control: <input type="number" name="control" value="<%= data.control %>" required></label>
+        <label>Número de lote: <input type="number" name="lote" value="<%= data.lote %>" required></label>
+        <label>Dirección: <input type="text" name="direccion" value="<%= data.direccion %>" required></label>
+        <label>Número de teléfono: <input type="number" name="telefono" value="<%= data.telefono %>"></label>
+        <label>Nombre: <input type="text" name="nombre" value="<%= data.nombre %>"></label>
+        <button type="submit">Actualizar</button>
+    </form>
+    <a href="/admin">Regresar</a>
+</body>
+</html>

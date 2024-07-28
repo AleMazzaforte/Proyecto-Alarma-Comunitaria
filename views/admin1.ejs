@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- adnim1.js -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administradores</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+                            :root {
+            --color1: #6c4536;
+            --color2: #58392e;
+            --color3: #845f43;
+            --color4: #bb945b;
+            --color5: #d6c573;
+        }
+
+        #headerIndex {
+            background-color: var(--color1);
+            color: rgb(12, 12, 12);
+        }
+
+        /* Estilos para el label crear */
+        #crearUsuario {
+            width: 90%; /* Predeterminado al 90% de ancho para pantallas más pequeñas */
+            max-width: 300px;
+            padding: 10px;
+            margin: 0 auto;
+        }
+
+        .fomInputCrear {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        input {
+            width: 100%; /* Predeterminado al 100% de ancho para pantallas más pequeñas */
+            height: 30px;
+            margin-bottom: 5px;
+        }
+
+        /* Estilos generales para la tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        /* Estilo para las celdas de encabezado */
+        th {
+            background-color: var(--color3);
+            color: white;
+            padding: 8px;
+        }
+
+        /* Estilo para las celdas de datos */
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Estilo para filas impares */
+        tr:nth-child(even) {
+            background-color: var(--color4);
+        }
+
+        tr:nth-child(odd) {
+            background-color: var(--color5);
+        }
+
+        /* Estilo para filas al pasar el mouse por encima */
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        body {
+            background-color: #717D7E;
+            margin: 0 auto;
+        }
+
+        h1 {
+            background-color: #4c2a1e;
+            color: lightgray;
+        }
+
+        /* Media Queries para pantallas más grandes */
+        @media (min-width: 768px) {
+            #crearUsuario {
+                width: 50%;
+            }
+
+            input {
+                width: 80%;
+            }
+
+            table {
+                font-size: 18px;
+            }
+        }
+
+        /* Media Queries para pantallas muy grandes */
+        @media (min-width: 1200px) {
+            #crearUsuario {
+                width: 30%;
+            }
+
+            input {
+                width: 70%;
+            }
+
+            table {
+                font-size: 20px;
+            }
+        }
+        a {
+            color: black;
+        }
+
+    </style>  
+
+</head>
+<body id="body">
+    <header>
+        <h1>Administradores Universitario 2 Sur</h1>
+        <a href="./">Inicio</a>
+        <a href="/admin">Administradores</a>
+    </header>
+    
+    
+   
+    
+
+    
+    <form action="" style="display: none">
+        <label for="buscarLote">Ingrese el número de control
+            <input type="number" name="buscarLote" id="buscarLote">
+        </label>
+        <input type="submit" value="Buscar">
+    </form>
+
+    <div id="crearUsuario" style="border: 1px black solid;">
+        <form action="/add" method="post">
+            <label class="fomInputCrear"><h2>Crear:</h2> </label>
+                <input type="number" name="control" placeholder="Número de control" required>
+                <input type="number" name="lote" placeholder="Número de lote" required>
+                <input type="text" name="direccion" placeholder="Dirección" required>            
+                <input type="number" name="telefono" placeholder="Número de teléfono">
+                <input type="text" name="nombre" placeholder="Nombre">
+                <input type="submit" value="Crear">           
+        </form>
+    </div>
+
+    <div id="listado">
+        <h1>Listado</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Número de control</th>
+                    <th>Lote</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Nombre</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tBody">
+            
+            </tbody>
+        </table>
+
+    </div>
+
+   
+    <script>
+                
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('tBody');
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${item.control}</td>
+                            <td>${item.lote}</td>
+                            <td>${item.direccion}</td>
+                            <td>${item.telefono}</td>
+                            <td>${item.nombre}</td>
+                            <td>
+                                <a href= '/delete/${item.control}' style= 'margin-right: 12px'>Borrar</a>
+                                <a href= '/update/${item.control}'>Modificar</a>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+
+        
+            // Check if there's an error query parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+
+            if (error === 'duplicate') {
+                alert('El número de control está duplicado');
+            }
+</script>
+</html>
