@@ -56,8 +56,14 @@ app.get('/login', (req, res) => {
         res.render('login')
 })
 
+app.get('/', (req, res) => {
+    //mostrar index
+    res.render('index')
+})
+
 app.post('/login', paspoprt.authenticate('local', {
      //recibir credenciales
+   
     successRedirect: '/admin',
     failureRedirect:'/login'
 }));
@@ -67,21 +73,6 @@ app.post('/add', mainController.addData);
 app.get('/delete/:control', mainController.deleteData);
 app.post('/update/:control', mainController.updateData);
 app.get('/update/:control', mainController.getUpdateData);
-// app.get('/update/:control', async (req, res) => {
-//     const { control } = req.params;
-//     try {
-//         const [rows] = await pool.query('SELECT * FROM Alarma_Comunitaria WHERE control = ?', [control]);
-//         if (rows.length === 0) {
-//             return res.status(404).send('Número de control no encontrado');
-//         }
-//         res.render('update', { data: rows[0] }); // Suponiendo que tienes una vista `update.ejs` para el formulario
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send('Error al obtener los datos para la actualización');
-//     }
-// });
-
-
 
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`)

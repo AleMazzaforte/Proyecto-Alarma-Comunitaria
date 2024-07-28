@@ -5,14 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            width: 330px;
+            border: 1px solid black;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: gray;
+            margin: 15px auto;
+        }
+
+        #divA {
+            width: 330px;
+            margin: 0 auto;
+        }
+
+        a {
+            color: black;
+        }
+        #inputUserName {
+            margin-left: 20px;
+        }
+
+        label {
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
     <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
-        <label>Usuario: <input type="text" name="username"></label>
+        <label>Usuario: <input type="text" name="username" id="inputUserName"></label>
         <label>Contraseña: <input type="text" name="password"></label>
         <input type="hidden" name="idRole" value="2">
         <button type="submit">Registrarme</button>
     </form>
-    <a href="/login.html">Regresar</a>
+    <div id="divA">
+        <a href="/">Regresar</a>
+    </div>
 </body>
 </html>
