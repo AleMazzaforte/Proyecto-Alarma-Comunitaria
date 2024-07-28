@@ -1,36 +1,17 @@
 {
     "version": 2,
     "builds": [
-      {
-        "src": "app.js",
-        "use": "@vercel/node"
-      }
+    {
+    "src": "./app.js",
+    "use": "@vercel/node"
+    }
     ],
     "routes": [
-      {
-        "src": "/index",
-        "dest": "/index"
-      },
-      {
-        "src": "/admin",
-        "dest": "/admin"
-      },
-      {
-        "src": "/api/index",
-        "methods": ["POST"],
-        "dest": "/api/index"
-      },
-      {
-        "src": "/api/index",
-        "methods": ["PUT"],
-        "dest": "/api/index"
-      },
-      {
-        "src": "/api/index",
-        "methods": ["DELETE"],
-        "dest": "/api/index"
-      }
+    {
+    "src": "/(.*)",
+    "dest": "/"
+    }
     ]
-  }
+   }
   
   
